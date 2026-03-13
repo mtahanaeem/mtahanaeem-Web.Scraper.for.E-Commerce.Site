@@ -1,0 +1,9 @@
+category,subcategory,title,price,url,description,review_count,availability
+Computers,Laptops,Laptop 1,449.0,https://webscraper.io/test-sites/e-commerce/static/product/1,High performance business laptop with 16GB RAM,32,In Stock
+Computers,Laptops,Laptop 2,599.0,https://webscraper.io/test-sites/e-commerce/static/product/2,Gaming laptop with RTX graphics card,45,In Stock
+Computers,Laptops,Laptop 3,899.99,https://webscraper.io/test-sites/e-commerce/static/product/3,Premium workstation laptop,28,In Stock
+Computers,Tablets,Tablet 1,249.0,https://webscraper.io/test-sites/e-commerce/static/product/4,10-inch tablet with stylus support,23,In Stock
+Computers,Tablets,Tablet 2,399.99,https://webscraper.io/test-sites/e-commerce/static/product/5,12-inch professional tablet,18,In Stock
+Phones,Touch,Phone 1,299.0,https://webscraper.io/test-sites/e-commerce/static/product/6,Flagship smartphone with 5G,67,In Stock
+Phones,Touch,Phone 2,199.99,https://webscraper.io/test-sites/e-commerce/static/product/7,Mid-range smartphone,54,In Stock
+Phones,Touch,Phone 3,149.0,https://webscraper.io/test-sites/e-commerce/static/product/8,Budget smartphone,41,Out of Stock
