@@ -35,7 +35,7 @@ This project follows **clean architecture, modular code structure, proper Git wo
 ## 📁 Project Structure
 
 ```
-T&T Quiz 1/
+Web.Scraper.for.E-Commerce.Site/
 ├── data/                          # Output data (generated CSV files)
 │   ├── products.csv              # All scraped products
 │   └── category_summary.csv      # Category statistics
@@ -132,7 +132,7 @@ pip install requests beautifulsoup4 pandas
 ### Step 1: Navigate to Project Directory
 
 ```bash
-cd "T&T Quiz 1"
+cd "Web.Scraper.for.E-Commerce.Site"
 ```
 
 ### Step 2: Run with uv (Recommended)
