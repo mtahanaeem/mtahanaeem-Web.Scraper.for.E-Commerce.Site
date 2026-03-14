@@ -445,9 +445,9 @@ Comprehensive README and inline code comments
 
 ## 👨‍💻 Author
 
-**Muhammad Taham Abubakar**  
+**Muhammad Taha Naeem**  
 University of Central Punjab  
-T&T Quiz 1 Assignment - 2026
+T&T Quiz 1  - 2026
 
 ---
 
