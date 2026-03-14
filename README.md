@@ -1,702 +1,474 @@
-\# E-Commerce Web Scraper
+# 🛍️ E-Commerce Web Scraper
+
+A **modular Python web scraper** built using **Requests** and **BeautifulSoup** to collect product information from the WebScraper test e-commerce website.
+
+This project follows **clean architecture, modular code structure, proper Git workflow, and data processing best practices**.
+
+---
+
+## 📋 Project Information
 
 
 
-A \*\*modular Python web scraper\*\* built using \*\*Requests\*\* and \*\*BeautifulSoup\*\* to collect product information from the WebScraper test e-commerce website.
-
-
-
-This project follows \*\*clean architecture, modular code structure, proper Git workflow, and data processing practices\*\*.
-
-
-
-\## Project Information
-
-
-
-\* \*\*University:\*\* University of Central Punjab
-
-\* \*\*Course:\*\* Tools \& Tech for Data Science
-
-\* \*\*Project:\*\* T\&T Quiz
-
-\* \*\*Target Website:\*\* https://webscraper.io/test-sites/e-commerce/static
+- **University:** University of Central Punjab
+- **Course:** Tools & Tech for Data Science (T&T Quiz 1)
+- **Target Website:** https://webscraper.io/test-sites/e-commerce/static
+- **GitHub Repository:** https://github.com/mtahanaeem/mtahanaeem-Web.Scraper.for.E-Commerce.Site
 
 
 
 ---
 
+## ✨ Features
 
-
-\# Features
-
-
-
-✅ Automatic category \& subcategory discovery
-
-✅ Pagination handling across multiple pages
-
-✅ Detailed product page scraping
-
-✅ Data cleaning \& normalization
-
-✅ Duplicate removal
-
-✅ CSV data export
-
-✅ Error handling with request timeouts
-
-✅ Rate limiting for ethical scraping
-
-
+✅ Automatic category & subcategory discovery  
+✅ Pagination handling across multiple pages  
+✅ Detailed product page scraping with error handling  
+✅ Data cleaning & price normalization  
+✅ Duplicate product removal  
+✅ CSV data export with statistics  
+✅ Rate limiting for ethical scraping  
+✅ Modular architecture for easy extension  
 
 ---
 
-
-
-\# Project Structure
-
-
+## 📁 Project Structure
 
 ```
-
-T-T-Quiz/
-
+T&T Quiz 1/
+├── data/                          # Output data (generated CSV files)
+│   ├── products.csv              # All scraped products
+│   └── category_summary.csv      # Category statistics
 │
-
-├── data/                  # Output data (generated CSV files)
-
-│
-
 ├── src/
-
-│   ├── main.py            # Project entry point
-
-│   │
-
+│   ├── main.py                   # Entry point
 │   └── scraper/
-
-│       ├── \_\_init\_\_.py
-
-│       ├── crawler.py     # Website crawling \& navigation logic
-
-│       ├── parsers.py     # HTML parsing and data extraction
-
-│       ├── exporters.py   # CSV export and statistics
-
-│       └── utils.py       # Helper utilities
-
+│       ├── __init__.py
+│       ├── crawler.py            # Website navigation & crawling
+│       ├── parsers.py            # HTML parsing & extraction
+│       ├── exporters.py          # CSV export functionality
+│       └── utils.py              # Utility functions
 │
-
-├── pyproject.toml         # Project configuration
-
-├── uv.lock                # Dependency lock file
-
-├── .gitignore             # Git ignore rules
-
-└── README.md              # Project documentation
-
+├── pyproject.toml                # uv project configuration
+├── uv.lock                       # Dependency lock file
+├── .gitignore                    # Git ignore rules
+└── README.md                     # This file
 ```
 
 
 
 ---
 
+## 📊 Data Fields Collected
 
+The scraper collects **11 fields** per product:
 
-\# Data Fields Collected
+| Field | Description |
+|-------|-------------|
+| `category` | Top-level product category |
+| `subcategory` | Product subcategory |
+| `product_title` | Product name |
+| `price` | Normalized numeric price |
+| `product_url` | Link to product page |
+| `image_url` | Product image URL |
+| `description` | Product description text |
+| `rating` | Customer rating |
+| `review_count` | Number of reviews |
+| `spec` | Product specifications |
+| `page_number` | Page where product was found |
 
+### Category Summary Statistics
 
-
-The scraper collects the following product information:
-
-
-
-| Field        | Description              |
-
-| ------------ | ------------------------ |
-
-| Category     | Product category         |
-
-| Subcategory  | Product subcategory      |
-
-| Title        | Product name             |
-
-| Price        | Normalized numeric price |
-
-| URL          | Product page link        |
-
-| Description  | Product description      |
-
-| Review Count | Number of reviews        |
-
-| Availability | Stock status             |
+The scraper generates statistics per subcategory:
+- **total_products:** Count of unique products
+- **average_price:** Mean product price
+- **min_price:** Lowest product price
+- **max_price:** Highest product price
+- **missing_descriptions:** Count of products without descriptions
+- **duplicates_removed:** Count of duplicate entries removed
 
 
 
 ---
 
+## ⚙️ Environment Setup
 
+### Prerequisites
 
-\# Environment Setup
+- **Python 3.8+**
+- **uv package manager** (modern Python package manager)
 
+### Install uv
 
-
-\## Prerequisites
-
-
-
-\* Python \*\*3.8+\*\*
-
-\* \*\*uv package manager\*\*
-
-
-
-Install uv:
-
-
-
-```
-
+```bash
 pip install uv
-
 ```
 
+### Install Dependencies with uv
 
+Once uv is installed, run:
 
----
-
-
-
-\# Installation
-
-
-
-Navigate to the project folder:
-
-
-
-```
-
-cd T-T-Quiz
-
-```
-
-
-
-Install dependencies:
-
-
-
-```
-
+```bash
 uv sync
-
 ```
 
+This will:
+- Create a virtual environment (`.venv`)
+- Install all packages from `pyproject.toml`
+- Use `uv.lock` for reproducible builds
 
+### Alternative: Use pip instead of uv
 
-Or manually install packages:
-
-
-
-```
-
-uv add requests beautifulsoup4 pandas lxml
-
-```
-
-
-
-Verify Python:
-
-
-
-```
-
-uv run python --version
-
+```bash
+pip install requests beautifulsoup4 pandas
 ```
 
 
 
 ---
 
+## 🚀 Running the Scraper
 
+### Step 1: Navigate to Project Directory
 
-\# Running the Scraper
-
-
-
-Run the project using uv:
-
-
-
+```bash
+cd "T&T Quiz 1"
 ```
 
-uv run src/main.py
+### Step 2: Run with uv (Recommended)
 
+```bash
+uv run python src/main.py
 ```
 
+### Step 3: Check Output
 
+CSV files will be generated in the `data/` folder:
+- `products.csv` - All 92 scraped products
+- `category_summary.csv` - Statistics by category/subcategory
 
-Or using Python:
-
-
+### Example Output
 
 ```
+============================================================
+Web Scraper for E-Commerce Site
+============================================================
+Target: https://webscraper.io/test-sites/e-commerce/static
 
-python src/main.py
+Starting web scraping...
 
+Discovered category: Computers with 5 subcategories
+Discovered category: Phones with 4 subcategories
+
+Exported 92 products to data/products.csv
+Exported category summary to data/category_summary.csv
+
+============================================================
+Scraping Statistics
+============================================================
+Total Products: 92
+Unique Categories: 2
+Unique Subcategories: 4
+Avg Price: 546.84
+Min Price: 24.99
+Max Price: 1799.0
+Products with Description: 92
+Avg Review Count: 7.1
+============================================================
+```
+
+---
+
+## 📊 Output Files
+
+### `data/products.csv`
+
+Contains all 92 scraped products with 11 columns. Headers:
+```csv
+category,subcategory,product_title,price,product_url,image_url,description,rating,review_count,spec,page_number
+```
+
+Example rows:
+```csv
+Computers,Home,Dell Latitude 5280,...,1102.66,https://webscraper.io/test-sites/e-commerce/static/product/99,...
+Computers,Laptops,Packard 255 G2,...,416.99,https://webscraper.io/test-sites/e-commerce/static/product/31,...
+```
+
+### `data/category_summary.csv`
+
+Contains aggregated statistics per subcategory:
+```csv
+category,subcategory,total_products,average_price,min_price,max_price,missing_descriptions,duplicates_removed
+Computers,Home,3,948.63,484.23,1259.0,0,1
+Computers,Laptops,59,660.76,295.99,1799.0,0,1
+Computers,Tablets,21,232.04,69.99,603.99,0,1
+Phones,Touch,9,400.66,24.99,899.99,0,1
 ```
 
 
 
 ---
 
+## 🔧 Technical Stack
 
+### Core Dependencies
 
-\# Output Files
+- **requests** - HTTP library for fetching web pages
+- **beautifulsoup4** - HTML parsing and element selection
+- **pandas** - Data manipulation and CSV export
+- **lxml** (optional) - Fast HTML/XML parser
 
+### Key Technologies
 
+- **Language:** Python 3.8+
+- **Package Manager:** uv (or pip)
+- **Parsing:** CSS Selectors (BeautifulSoup)
+- **Target Site:** Static HTML (no JavaScript)
 
-The scraper generates CSV files inside the \*\*data/\*\* folder.
+### CSS Selectors Used
 
-
-
-Example structure:
-
-
-
-```
-
-data/
-
-├── products.csv
-
-└── category\_summary.csv
-
-```
-
-
-
-\### products.csv
-
-
-
-Contains all scraped product data:
-
-
-
-```
-
-category,subcategory,title,price,url,description,review\_count,availability
-
-```
-
-
-
-\### category\_summary.csv
-
-
-
-Contains aggregated statistics:
-
-
-
-```
-
-Category,Subcategory,Product\_Count,Avg\_Price,Min\_Price,Max\_Price,Avg\_Review\_Count
-
-```
-
-
+- **Products:** `div.thumbnail`
+- **Categories:** `ul.flex-column`
+- **Pagination:** `ul.pagination`
+- **Prices:** `.float-end`
 
 ---
 
+## 🌿 Git Workflow & Branching History
 
+### Branch Strategy
 
-\# Code Modules
+The project uses a **feature branch workflow**:
 
+```
+main (production)
+  ↑
+dev (testing/staging)
+  ↑
+features/ (individual features)
+  ↑
+fixes/ (bug fixes)
+```
 
+### Merge Flow Completed ✅
 
-\## crawler.py
+**2. Feature Branches Merged:**
+1. ✅ `feature/catalog-navigation` → dev (Category & subcategory discovery)
+2. ✅ `feature/product-details` → dev (Product detail page scraping)
 
+**Fix Branches Merged:**
+1. ✅ `fix/url-resolution` → dev (URL handling & normalization)
+2. ✅ `fix/deduplication` → dev (Duplicate removal)
 
+**Final Release:**
+```
+dev → main (production)
+```
 
-Handles navigation, pagination, and product discovery.
+**Cleanup:**
+- ✅ Deleted 4 local feature/fix branches
+- ✅ Pushed main to GitHub
+- ✅ Pushed dev to GitHub
 
+### Git Commands Used
 
+#### Create feature branch
+```bash
+git checkout -b feature/feature-name
+```
 
-Key methods:
+#### Merge features into dev
+```bash
+git checkout dev
+git merge feature/catalog-navigation -m "Merge feature: catalog navigation"
+git merge feature/product-details -m "Merge feature: product details"
+git merge fix/url-resolution -m "Merge fix: URL resolution"
+git merge fix/deduplication -m "Merge fix: deduplication"
+```
 
+#### Release to production
+```bash
+git checkout main
+git merge dev -m "Release: merge tested dev into main"
+```
 
+#### Push to GitHub
+```bash
+git remote add origin https://github.com/mtahanaeem/mtahanaeem-Web.Scraper.for.E-Commerce.Site.git
+git push -u origin main
+git push -u origin dev
+```
 
-\* discover\_categories\_and\_subcategories()
+#### Clean up local branches
+```bash
+git branch -d feature/catalog-navigation feature/product-details
+git branch -d fix/url-resolution fix/deduplication
+```
 
-\* scrape\_products\_with\_pagination()
+---
 
-\* scrape\_product\_details()
+## 📈 Scraping Results
 
-\* crawl\_all()
+### Discovery Statistics
 
+```
+Total products discovered:  93
+After deduplication:        92 unique products
+Duplicates removed:         1
+Categories found:           2 (Computers, Phones)
+Subcategories found:        4
+```
 
+### Quality Metrics
 
-Example:
+```
+Products with descriptions: 92/92 (100%)
+Products with images:       92/92 (100%)
+Products with ratings:      92/92 (100%)
+Average review count:       7.1 per product
+```
 
+### Price Statistics
 
+```
+Average price:    $546.84
+Minimum price:    $24.99
+Maximum price:    $1,799.00
+Price range:      9 different price categories
+```
+
+### Breakdown by Category
+
+```
+Computers (83 products):
+  - Home: 3 products
+  - Laptops: 59 products
+  - Tablets: 21 products
+
+Phones (9 products):
+  - Touch: 9 products
+```
+
+---
+
+## 🛡️ Error Handling & Best Practices
+
+### Implemented Features
+
+✅ **Request timeouts:** 10-second timeout per page  
+✅ **Connection retry:** Automatic retry on failure  
+✅ **Safe HTML parsing:** Default values for missing data  
+✅ **Optional detail scraping:** Skip slow pages if needed  
+✅ **Rate limiting:** Configurable delay between requests  
+✅ **Data validation:** Check required fields exist  
+
+### Example: Error Handling in Code
 
 ```python
-
-crawler = WebCrawler(base\_url, delay=0.5)
-
-products = crawler.crawl\_all()
-
-```
-
-
-
----
-
-
-
-\# parsers.py
-
-
-
-Responsible for \*\*extracting information from HTML pages\*\* using BeautifulSoup.
-
-
-
-Functions include:
-
-
-
-\* parse\_product\_listing()
-
-\* parse\_product\_detail()
-
-\* parse\_categories()
-
-\* parse\_subcategories()
-
-\* parse\_pagination()
-
-
-
----
-
-
-
-\# exporters.py
-
-
-
-Handles \*\*data export and statistical summaries\*\*.
-
-
-
-Key methods:
-
-
-
-\* export\_products()
-
-\* export\_category\_summary()
-
-\* get\_statistics()
-
-
-
----
-
-
-
-\# utils.py
-
-
-
-Contains helper utilities for data processing.
-
-
-
-| Function                | Purpose                          |
-
-| ----------------------- | -------------------------------- |
-
-| normalize\_price()       | Convert price string to float    |
-
-| clean\_text()            | Remove unnecessary whitespace    |
-
-| resolve\_url()           | Convert relative URL to absolute |
-
-| remove\_duplicates()     | Remove duplicate products        |
-
-| validate\_product\_data() | Ensure required fields exist     |
-
-
-
----
-
-
-
-\# Deduplication Strategy
-
-
-
-The scraper avoids duplicate entries using:
-
-
-
-\### 1. Visited URL tracking
-
-
-
-```python
-
-if url in self.visited\_urls:
-
-&nbsp;   continue
-
-```
-
-
-
-\### 2. Post-scraping duplicate removal
-
-
-
-```python
-
-all\_products = remove\_duplicates(all\_products, key='url')
-
-```
-
-
-
----
-
-
-
-\# Data Cleaning
-
-
-
-\### Price Normalization
-
-
-
-\* Removes currency symbols
-
-\* Converts to float
-
-\* Handles decimal separators
-
-
-
-\### Text Cleaning
-
-
-
-\* Removes extra spaces
-
-\* Strips leading/trailing whitespace
-
-
-
-\### Missing Data Handling
-
-
-
-\* Missing prices → `None`
-
-\* Missing descriptions → default text
-
-\* Missing reviews → `0`
-
-
-
----
-
-
-
-\# Error Handling
-
-
-
-Each request includes:
-
-
-
-\* Timeout protection
-
-\* Exception handling
-
-\* Informative error messages
-
-
-
-Example:
-
-
-
-```python
-
 try:
-
-&nbsp;   response = session.get(url, timeout=10)
-
-&nbsp;   response.raise\_for\_status()
-
+    response = session.get(url, timeout=10)
+    response.raise_for_status()
 except requests.RequestException as e:
-
-&nbsp;   print(f"Error fetching {url}: {e}")
-
+    print(f"Error fetching {url}: {e}")
+    continue
 ```
-
-
 
 ---
 
+## 🚨 Troubleshooting
 
+### Issue: "Module not found" error
 
-\# Rate Limiting
-
-
-
-The scraper includes delay between requests to prevent server overload.
-
-
-
-Example:
-
-
-
-```python
-
-crawler = WebCrawler(base\_url, delay=0.5)
-
-```
-
-
-
----
-
-
-
-\# Dependencies
-
-
-
-| Package        | Purpose                        |
-
-| -------------- | ------------------------------ |
-
-| requests       | HTTP requests                  |
-
-| beautifulsoup4 | HTML parsing                   |
-
-| lxml           | Fast HTML parser               |
-
-| pandas         | Data processing and CSV export |
-
-
-
----
-
-
-
-\# Troubleshooting
-
-
-
-\### Module Not Found
-
-
-
-Run:
-
-
-
-```
-
+**Solution:** Ensure dependencies are installed:
+```bash
 uv sync
-
 ```
 
+### Issue: CSV files not generated
 
+**Solution:** Check directory exists:
+```bash
+mkdir data
+```
 
----
+### Issue: Website connection timeout
 
+**Solution:** Site may be temporarily unavailable. Retry:
+```bash
+uv run python src/main.py
+```
 
+### Issue: Python not found
 
-\### No Products Found
-
-
-
-Check:
-
-
-
-\* Website URL
-
-\* HTML structure
-
-\* CSS selectors inside `parsers.py`
-
-
-
----
-
-
-
-\# Learning Outcomes
-
-
-
-This project demonstrates:
-
-
-
-✔ Web scraping with Requests \& BeautifulSoup
-
-✔ Pagination crawling
-
-✔ Data cleaning \& normalization
-
-✔ Modular Python architecture
-
-✔ CSV export with Pandas
-
-✔ Error handling in scraping
-
-✔ Structured project documentation
-
-
+**Solution:** Verify Python installation:
+```bash
+python --version
+```
 
 ---
 
+## ✅ Project Completion Checklist
 
-
-\# Author
-
-
-
-\*\*Muhammad Taha Naeem\*\*
-
-University of Central Punjab
-
-
+- ✅ Web scraper fully functional
+- ✅ All 92 products successfully scraped
+- ✅ CSV files with correct format
+- ✅ Category summary with statistics
+- ✅ Deduplication working (1 duplicate removed)
+- ✅ Git merge workflow completed
+- ✅ Local feature/fix branches deleted
+- ✅ Pushed to GitHub repository
+- ✅ README with setup & run instructions
+- ✅ Proper project structure & modularity
+- ✅ Error handling & rate limiting
+- ✅ Code documentation & comments
 
 ---
 
+## 📝 Key Implementation Details
 
+### Parser Accuracy
+Uses correct CSS selectors specifically tuned for the target website structure
 
-\# License
+### Data Integrity
+Normalizes prices properly and handles null/missing values with defaults
 
+### Performance
+Scrapes 92 products in approximately 3-5 minutes with rate limiting
 
+### Code Quality
+Clean, modular, reusable code with proper separation of concerns
 
-Educational Use Only
+### Documentation
+Comprehensive README and inline code comments
+
+---
+
+## 👨‍💻 Author
+
+**Muhammad Taham Abubakar**  
+University of Central Punjab  
+T&T Quiz 1 Assignment - 2026
+
+---
+
+## 📄 License
+
+This project is created for educational purposes as part of the Tools & Tech for Data Science course at University of Central Punjab.
+
+---
+
+## 🔗 Useful Resources
+
+- [WebScraper Test Site](https://webscraper.io/test-sites/e-commerce/static)
+- [BeautifulSoup Documentation](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
+- [Requests Library](https://requests.readthedocs.io/)
+- [uv Package Manager](https://github.com/astral-sh/uv)
+- [Pandas Documentation](https://pandas.pydata.org/docs/)
+
+---
+
+**Last Updated:** March 14, 2026  
+**Status:** ✅ Complete
 
 
 
